@@ -9,7 +9,7 @@ import org.hmhb.config.PublicConfig;
 import org.hmhb.exception.authentication.AuthHeaderHasTooManyPartsException;
 import org.hmhb.exception.authentication.AuthHeaderMissingTokenException;
 import org.hmhb.exception.authentication.AuthHeaderUnknownException;
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.env.Environment;
@@ -49,7 +49,7 @@ public class DefaultJwtAuthenticationServiceTest {
 
     @Test
     public void testJwtToken() throws Exception {
-        HmhbUser user = new HmhbUser();
+        User user = new User();
         user.setId(USER_ID);
         user.setEmail(USER_EMAIL);
         user.setAdmin(false);
@@ -76,7 +76,7 @@ public class DefaultJwtAuthenticationServiceTest {
 
     @Test(expected = SignatureException.class)
     public void testJwtToken_Tampered() throws Exception {
-        HmhbUser user = new HmhbUser();
+        User user = new User();
         user.setId(USER_ID);
         user.setEmail(USER_EMAIL);
         user.setAdmin(false);
@@ -112,7 +112,7 @@ public class DefaultJwtAuthenticationServiceTest {
 
     @Test(expected = AuthHeaderMissingTokenException.class)
     public void testJwtToken_AuthHeaderNotEnoughParts() throws Exception {
-        HmhbUser user = new HmhbUser();
+        User user = new User();
         user.setId(USER_ID);
         user.setEmail(USER_EMAIL);
         user.setAdmin(false);
@@ -126,7 +126,7 @@ public class DefaultJwtAuthenticationServiceTest {
 
     @Test(expected = AuthHeaderHasTooManyPartsException.class)
     public void testJwtToken_AuthHeaderTooManyParts() throws Exception {
-        HmhbUser user = new HmhbUser();
+        User user = new User();
         user.setId(USER_ID);
         user.setEmail(USER_EMAIL);
         user.setAdmin(false);
@@ -150,7 +150,7 @@ public class DefaultJwtAuthenticationServiceTest {
 
     @Test(expected = AuthHeaderUnknownException.class)
     public void testJwtToken_UnknownAuthHeader() throws Exception {
-        HmhbUser user = new HmhbUser();
+        User user = new User();
         user.setId(USER_ID);
         user.setEmail(USER_EMAIL);
         user.setAdmin(false);

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static java.util.Objects.requireNonNull;
 
 /**
- * REST endpoint for {@link HmhbUser} objects.
+ * REST endpoint for {@link User} objects.
  */
 @RestController
 public class UserController {
@@ -36,7 +36,7 @@ public class UserController {
      * An injectable constructor.
      *
      * @param service the {@link UserService} for saving, deleting, and
-     *                retrieving {@link HmhbUser}s
+     *                retrieving {@link User}s
      */
     @Autowired
     public UserController(
@@ -47,9 +47,9 @@ public class UserController {
     }
 
     /**
-     * Retrieves all {@link HmhbUser}s in the system.
+     * Retrieves all {@link User}s in the system.
      *
-     * @return all {@link HmhbUser}s
+     * @return all {@link User}s
      */
     @Timed
     @RequestMapping(
@@ -57,13 +57,13 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/api/users"
     )
-    public List<HmhbUser> getAll() {
+    public List<User> getAll() {
         LOGGER.debug("getAll called");
         return service.getAll();
     }
 
     /**
-     * Retrieves all {@link HmhbUser}s in the system and exports them to a
+     * Retrieves all {@link User}s in the system and exports them to a
      * CSV file.
      *
      * @param jwtToken the JWT auth token (needed in a query param because this
@@ -95,10 +95,10 @@ public class UserController {
     }
 
     /**
-     * Retrieves a {@link HmhbUser} by its database ID.
+     * Retrieves a {@link User} by its database ID.
      *
      * @param id the database ID
-     * @return the {@link HmhbUser}
+     * @return the {@link User}
      */
     @Timed
     @RequestMapping(
@@ -106,7 +106,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/api/users/{id}"
     )
-    public HmhbUser getById(
+    public User getById(
             @PathVariable long id
     ) {
         LOGGER.debug("getById called: id={}", id);
@@ -114,10 +114,10 @@ public class UserController {
     }
 
     /**
-     * Creates a new {@link HmhbUser}.
+     * Creates a new {@link User}.
      *
-     * @param user the new {@link HmhbUser} to create
-     * @return the newly created {@link HmhbUser}
+     * @param user the new {@link User} to create
+     * @return the newly created {@link User}
      */
     @Timed
     @RequestMapping(
@@ -126,19 +126,19 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             path = "/api/users"
     )
-    public HmhbUser create(
-            @RequestBody HmhbUser user
+    public User create(
+            @RequestBody User user
     ) {
         LOGGER.debug("create called: user={}", user);
         return service.save(user);
     }
 
     /**
-     * Updates an existing {@link HmhbUser}.
+     * Updates an existing {@link User}.
      *
-     * @param id the database ID of the {@link HmhbUser} to update
-     * @param user the {@link HmhbUser} to update to
-     * @return the updated {@link HmhbUser}
+     * @param id the database ID of the {@link User} to update
+     * @param user the {@link User} to update to
+     * @return the updated {@link User}
      */
     @Timed
     @RequestMapping(
@@ -147,9 +147,9 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             path = "/api/users/{id}"
     )
-    public HmhbUser update(
+    public User update(
             @PathVariable long id,
-            @RequestBody HmhbUser user
+            @RequestBody User user
     ) {
         LOGGER.debug("update called: id={}, user={}", id, user);
 
@@ -161,10 +161,10 @@ public class UserController {
     }
 
     /**
-     * Deletes a {@link HmhbUser}.
+     * Deletes a {@link User}.
      *
-     * @param id the database ID of the {@link HmhbUser} to delete
-     * @return the deleted {@link HmhbUser}
+     * @param id the database ID of the {@link User} to delete
+     * @return the deleted {@link User}
      */
     @Timed
     @RequestMapping(
@@ -172,7 +172,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/api/users/{id}"
     )
-    public HmhbUser delete(
+    public User delete(
             @PathVariable long id
     ) {
         LOGGER.debug("delete called: id={}", id);

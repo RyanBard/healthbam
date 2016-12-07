@@ -1,6 +1,6 @@
 package org.hmhb.authorization;
 
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 
 /**
  * Service to get authorization information about the current user.
@@ -26,6 +26,6 @@ public interface AuthorizationService {
      *
      * @return the logged in user, or null if the user isn't logged in
      */
-    HmhbUser getLoggedInUser();
+    User getLoggedInUser();
 
 }

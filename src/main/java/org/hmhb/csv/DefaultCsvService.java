@@ -10,7 +10,7 @@ import com.codahale.metrics.annotation.Timed;
 import org.hmhb.county.County;
 import org.hmhb.program.Program;
 import org.hmhb.programarea.ProgramArea;
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -188,7 +188,7 @@ public class DefaultCsvService implements CsvService {
     @Timed
     @Override
     public String generateFromUsers(
-            @Nonnull List<HmhbUser> users
+            @Nonnull List<User> users
     ) {
         LOGGER.debug(
                 "generateFromUsers called"
@@ -202,7 +202,7 @@ public class DefaultCsvService implements CsvService {
         toReturn.append("first_name,middle_name,last_name,prefix,suffix,");
         toReturn.append("image_url,profile_url\n");
 
-        for (HmhbUser user : users) {
+        for (User user : users) {
 
             toReturn.append(handleString(user.getEmail()));
             toReturn.append(',');

@@ -17,36 +17,46 @@ This will build and set up IntelliJ for the project.
 Alternative method: you can run this command to generate an "ipr" file that can be opened:
 
 ~~~~shell
-./gradlew idea
+~/projects/healthbam $ ./gradlew idea
 ~~~~
 
 ### Building
 
 ~~~~shell
-./gradlew build
+~/projects/healthbam $ ./gradlew build
 ~~~~
 
 ### Running Locally
 
+#### PostgreSQL
+
 You must have a postgres DB to use when running locally.
 
-That local DBMS must have A healthbam_sql user:
+First, connect to the local DBMS from your project's top level directory (same directory as this README):
 
-~~~~sql
-CREATE USER healthbam_sql PASSWORD 'changeit';
+~~~~shell
+~/projects/healthbam $ psql postgres
 ~~~~
 
-And A hmhb_db database:
+Initialize the user & database with the initial-setup.sql:
 
-~~~~sql
-CREATE DATABASE hmhb_db WITH OWNER healthbam_sql;
+~~~~shell
+postgres=# \i database/initial-setup.sql
 ~~~~
+
+Now quit out of the psql shell:
+
+~~~~shell
+healthbam_db=# \q
+~~~~
+
+#### Environment Variable Setup
 
 Create a .env file to the top level directory of this project with the PORT to serve and JDBC_DATABASE_URL:
 
 ~~~~shell
 PORT=8080
-JDBC_DATABASE_URL="jdbc:postgresql://localhost:5432/hmhb_db"
+JDBC_DATABASE_URL="jdbc:postgresql://localhost:5432/healthbam_db"
 GOOGLE_OAUTH_CLIENT_ID="259324353484-f8u4ltb5qko7fltub68dguhs16ae93nr.apps.googleusercontent.com"
 GOOGLE_OAUTH_CLIENT_SECRET="<secret>"
 HMHB_JWT_SECRET="<also secret>"
@@ -55,7 +65,7 @@ HMHB_JWT_SECRET="<also secret>"
 Now you can run the latest code you have built locally with:
 
 ~~~~shell
-heroku local
+~/projects/healthbam $ heroku local
 ~~~~
 
 ### Perks Offered By Spring Boot

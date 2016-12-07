@@ -2,7 +2,7 @@ package org.hmhb.authorization;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,7 +38,7 @@ public class DefaultAuthorizationServiceTest {
 
     @Test
     public void testIsLoggedIn_LoggedIn() throws Exception {
-        HmhbUser user = new HmhbUser();
+        User user = new User();
 
         /* Train the mocks. */
         when(request.getAttribute("loggedInUser")).thenReturn(user);
@@ -64,7 +64,7 @@ public class DefaultAuthorizationServiceTest {
 
     @Test
     public void testIsAdmin_PartnerLoggedIn() throws Exception {
-        HmhbUser user = new HmhbUser();
+        User user = new User();
         user.setAdmin(false);
 
         /* Train the mocks. */
@@ -79,7 +79,7 @@ public class DefaultAuthorizationServiceTest {
 
     @Test
     public void testIsAdmin_AdminLoggedIn() throws Exception {
-        HmhbUser user = new HmhbUser();
+        User user = new User();
         user.setAdmin(true);
 
         /* Train the mocks. */

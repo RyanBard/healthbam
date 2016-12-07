@@ -90,7 +90,7 @@ public class DefaultUserServiceTest {
 
     @Test
     public void testSaveWithGoogleData() throws Exception {
-        HmhbUser userInDb = new HmhbUser();
+        User userInDb = new User();
         userInDb.setId(USER_ID);
         userInDb.setAdmin(true);
         userInDb.setEmail(EMAIL);
@@ -102,7 +102,7 @@ public class DefaultUserServiceTest {
         userInDb.setCreatedBy("system-generated");
         userInDb.setCreatedOn(BEFORE);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
         expected.setAdmin(true);
         expected.setEmail(EMAIL);
@@ -135,7 +135,7 @@ public class DefaultUserServiceTest {
         when(dao.save(expected)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.saveWithGoogleData(EMAIL, gPlusProfile);
+        User actual = toTest.saveWithGoogleData(EMAIL, gPlusProfile);
 
         /* Verify the results. */
         assertEquals(userInDb, actual);
@@ -143,7 +143,7 @@ public class DefaultUserServiceTest {
 
     @Test
     public void testSaveWithGoogleData_NotFound() throws Exception {
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setAdmin(false);
         expected.setEmail(EMAIL);
         expected.setDisplayName(DISPLAY_NAME);
@@ -173,7 +173,7 @@ public class DefaultUserServiceTest {
         when(dao.save(expected)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.saveWithGoogleData(EMAIL, gPlusProfile);
+        User actual = toTest.saveWithGoogleData(EMAIL, gPlusProfile);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -182,13 +182,13 @@ public class DefaultUserServiceTest {
     @Test
     public void testGetById_Admin_FoundUser() throws Exception {
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
         loggedInUser.setEmail(OTHER_EMAIL);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
 
         /* Train the mocks. */
@@ -197,7 +197,7 @@ public class DefaultUserServiceTest {
         when(dao.findOne(USER_ID)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.getById(USER_ID);
+        User actual = toTest.getById(USER_ID);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -206,7 +206,7 @@ public class DefaultUserServiceTest {
     @Test(expected = UserNotFoundException.class)
     public void testGetById_Admin_UserNotFound() throws Exception {
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
@@ -233,7 +233,7 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserNotAllowedToAccessOtherProfileException.class)
     public void testGetById_NonAdmin_AccessingOtherProfile() {
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(false);
@@ -249,7 +249,7 @@ public class DefaultUserServiceTest {
 
     @Test
     public void testGetById_NonAdmin_AccessingOwnProfile() {
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(false);
@@ -261,7 +261,7 @@ public class DefaultUserServiceTest {
         when(dao.findOne(USER_ID)).thenReturn(loggedInUser);
 
         /* Make the call. */
-        HmhbUser actual = toTest.getById(USER_ID);
+        User actual = toTest.getById(USER_ID);
 
         /* Verify the results. */
         assertEquals(loggedInUser, actual);
@@ -270,16 +270,16 @@ public class DefaultUserServiceTest {
     @Test
     public void testGetAll_Admin() throws Exception {
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
         loggedInUser.setEmail(OTHER_EMAIL);
 
-        HmhbUser expectedUser = new HmhbUser();
+        User expectedUser = new User();
         expectedUser.setId(USER_ID);
 
-        List<HmhbUser> expected = Collections.singletonList(expectedUser);
+        List<User> expected = Collections.singletonList(expectedUser);
 
         /* Train the mocks. */
         when(authorizationService.isAdmin()).thenReturn(true);
@@ -287,7 +287,7 @@ public class DefaultUserServiceTest {
         when(dao.findAllByOrderByDisplayNameAscEmailAsc()).thenReturn(expected);
 
         /* Make the call. */
-        List<HmhbUser> actual = toTest.getAll();
+        List<User> actual = toTest.getAll();
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -305,7 +305,7 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserNotAllowedToAccessOtherProfileException.class)
     public void testGetAll_NonAdmin_AccessingOtherProfile() {
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(false);
@@ -322,16 +322,16 @@ public class DefaultUserServiceTest {
     @Test
     public void testGetAllAsCsv_Admin() throws Exception {
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
         loggedInUser.setEmail(OTHER_EMAIL);
 
-        HmhbUser expectedUser = new HmhbUser();
+        User expectedUser = new User();
         expectedUser.setId(USER_ID);
 
-        List<HmhbUser> usersFound = Collections.singletonList(expectedUser);
+        List<User> usersFound = Collections.singletonList(expectedUser);
 
         String expected = "a,b,c\n1,2,3\n";
 
@@ -361,7 +361,7 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserNotAllowedToAccessOtherProfileException.class)
     public void testGetAllAsCsv_NonAdmin_AccessingOtherProfile() {
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(false);
@@ -377,7 +377,7 @@ public class DefaultUserServiceTest {
 
     @Test
     public void testSave_SuperAdmin_UpdatesTheirProfile() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(USER_ID);
         input.setSuperAdmin(false); /* this should be ignored */
         input.setAdmin(false); /* this should be ignored */
@@ -388,13 +388,13 @@ public class DefaultUserServiceTest {
         input.setUpdatedBy("trying to set this");
         input.setUpdatedOn(new Date(-2));
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(USER_ID);
         loggedInUser.setSuperAdmin(true);
         loggedInUser.setAdmin(true);
         loggedInUser.setEmail(EMAIL);
 
-        HmhbUser userInDb = new HmhbUser();
+        User userInDb = new User();
         userInDb.setId(USER_ID);
         userInDb.setSuperAdmin(true);
         userInDb.setAdmin(true);
@@ -402,7 +402,7 @@ public class DefaultUserServiceTest {
         userInDb.setCreatedBy("system-generated");
         userInDb.setCreatedOn(BEFORE);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
         expected.setSuperAdmin(true); /* super admin cannot be changed */
         expected.setAdmin(true); /* super admin implies admin */
@@ -421,7 +421,7 @@ public class DefaultUserServiceTest {
         when(dao.save(expected)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.save(input);
+        User actual = toTest.save(input);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -429,7 +429,7 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserSuperAdminCannotBeModifiedByOthers.class)
     public void testSave_Admin_TriesToUpdateSuperAdmin() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(USER_ID);
         input.setSuperAdmin(true);
         input.setAdmin(true);
@@ -440,13 +440,13 @@ public class DefaultUserServiceTest {
         input.setUpdatedBy("trying to set this");
         input.setUpdatedOn(new Date(-2));
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(true);
         loggedInUser.setAdmin(true);
         loggedInUser.setEmail(OTHER_EMAIL);
 
-        HmhbUser userInDb = new HmhbUser();
+        User userInDb = new User();
         userInDb.setId(USER_ID);
         userInDb.setSuperAdmin(true);
         userInDb.setAdmin(true);
@@ -465,7 +465,7 @@ public class DefaultUserServiceTest {
 
     @Test
     public void testSave_Admin_UpdateExistingUser() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(USER_ID);
         input.setAdmin(true);
         input.setEmail(EMAIL);
@@ -475,20 +475,20 @@ public class DefaultUserServiceTest {
         input.setUpdatedBy("trying to set this");
         input.setUpdatedOn(new Date(-2));
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
         loggedInUser.setEmail(OTHER_EMAIL);
 
-        HmhbUser userInDb = new HmhbUser();
+        User userInDb = new User();
         userInDb.setId(USER_ID);
         userInDb.setAdmin(false);
         userInDb.setEmail(EMAIL);
         userInDb.setCreatedBy("system-generated");
         userInDb.setCreatedOn(BEFORE);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
         expected.setAdmin(true);
         expected.setEmail(EMAIL);
@@ -506,7 +506,7 @@ public class DefaultUserServiceTest {
         when(dao.save(expected)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.save(input);
+        User actual = toTest.save(input);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -514,7 +514,7 @@ public class DefaultUserServiceTest {
 
     @Test
     public void testSave_Admin_CreateNewUser() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(null);
         input.setAdmin(true);
         input.setEmail(EMAIL);
@@ -524,13 +524,13 @@ public class DefaultUserServiceTest {
         input.setUpdatedBy("trying to set this");
         input.setUpdatedOn(new Date(-2));
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
         loggedInUser.setEmail(OTHER_EMAIL);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setAdmin(true);
         expected.setEmail(EMAIL);
         expected.setCreatedBy(OTHER_EMAIL);
@@ -546,7 +546,7 @@ public class DefaultUserServiceTest {
         when(dao.save(expected)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.save(input);
+        User actual = toTest.save(input);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -554,12 +554,12 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserEmailTooLongException.class)
     public void testSave_Admin_CreateNewUser_EmailTooLong() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(null);
         input.setAdmin(true);
         input.setEmail(TOO_LONG);
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
@@ -575,12 +575,12 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserEmailRequiredException.class)
     public void testSave_Admin_CreateNewUser_NullEmail() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(null);
         input.setAdmin(true);
         input.setEmail(null);
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
@@ -596,12 +596,12 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserEmailRequiredException.class)
     public void testSave_Admin_CreateNewUser_EmptyEmail() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(null);
         input.setAdmin(true);
         input.setEmail("");
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
@@ -617,12 +617,12 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserEmailRequiredException.class)
     public void testSave_Admin_CreateNewUser_WhitespaceEmail() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(null);
         input.setAdmin(true);
         input.setEmail("   ");
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
@@ -638,7 +638,7 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserNotAllowedToAccessOtherProfileException.class)
     public void testSave_NotLoggedIn() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(null);
         input.setEmail(EMAIL);
 
@@ -652,11 +652,11 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserNotAllowedToAccessOtherProfileException.class)
     public void testSave_NonAdmin_ModifyingOtherProfile() {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(USER_ID);
         input.setEmail(EMAIL);
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(false);
@@ -671,11 +671,11 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserNotAllowedToAccessOtherProfileException.class)
     public void testSave_NonAdmin_CreatingNewProfile() {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(null);
         input.setEmail(EMAIL);
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(false);
@@ -690,18 +690,18 @@ public class DefaultUserServiceTest {
 
     @Test
     public void testSave_NonAdmin_ModifyingOwnProfile() {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(USER_ID);
         input.setEmail(EMAIL);
 
-        HmhbUser userInDb = new HmhbUser();
+        User userInDb = new User();
         userInDb.setId(USER_ID);
         userInDb.setAdmin(false);
         userInDb.setEmail(EMAIL);
         userInDb.setCreatedBy("system-generated");
         userInDb.setCreatedOn(BEFORE);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
         expected.setAdmin(false);
         expected.setEmail(EMAIL);
@@ -710,7 +710,7 @@ public class DefaultUserServiceTest {
         expected.setUpdatedBy(EMAIL);
         expected.setUpdatedOn(NOW);
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(false);
@@ -724,7 +724,7 @@ public class DefaultUserServiceTest {
         when(dao.save(expected)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.save(input);
+        User actual = toTest.save(input);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -732,19 +732,19 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserNonAdminCannotEscalateToAdminException.class)
     public void testSave_NonAdmin_ModifyingOwnProfile_PrivilegeEscalation() {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(USER_ID);
         input.setAdmin(true); /* non-admin is trying to escalate privileges to admin */
         input.setEmail(EMAIL);
 
-        HmhbUser userInDb = new HmhbUser();
+        User userInDb = new User();
         userInDb.setId(USER_ID);
         userInDb.setAdmin(false);
         userInDb.setEmail(EMAIL);
         userInDb.setCreatedBy("system-generated");
         userInDb.setCreatedOn(BEFORE);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
         expected.setAdmin(false);
         expected.setEmail(EMAIL);
@@ -753,7 +753,7 @@ public class DefaultUserServiceTest {
         expected.setUpdatedBy(EMAIL);
         expected.setUpdatedOn(NOW);
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(false);
@@ -769,13 +769,13 @@ public class DefaultUserServiceTest {
 
     @Test
     public void testSave_Admin_PrivilegeEscalation() {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(USER_ID);
         input.setSuperAdmin(true); /* admin is trying to escalate privileges to super-admin */
         input.setAdmin(true);
         input.setEmail(EMAIL);
 
-        HmhbUser userInDb = new HmhbUser();
+        User userInDb = new User();
         userInDb.setId(USER_ID);
         userInDb.setSuperAdmin(false);
         userInDb.setAdmin(true);
@@ -783,7 +783,7 @@ public class DefaultUserServiceTest {
         userInDb.setCreatedBy("system-generated");
         userInDb.setCreatedOn(BEFORE);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
         expected.setSuperAdmin(false); /* the system shouldn't let them change super-admin */
         expected.setAdmin(true);
@@ -793,7 +793,7 @@ public class DefaultUserServiceTest {
         expected.setUpdatedBy(EMAIL);
         expected.setUpdatedOn(NOW);
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
@@ -807,7 +807,7 @@ public class DefaultUserServiceTest {
         when(dao.save(expected)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.save(input);
+        User actual = toTest.save(input);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -816,13 +816,13 @@ public class DefaultUserServiceTest {
     @Test
     public void testDelete_Admin_FoundUser() throws Exception {
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
         loggedInUser.setEmail(OTHER_EMAIL);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
 
         /* Train the mocks. */
@@ -831,7 +831,7 @@ public class DefaultUserServiceTest {
         when(dao.findOne(USER_ID)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.delete(USER_ID);
+        User actual = toTest.delete(USER_ID);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -841,13 +841,13 @@ public class DefaultUserServiceTest {
     @Test(expected = UserCannotDeleteSuperAdminException.class)
     public void testDelete_Admin_SuperAdminsCannotBeDeleted() throws Exception {
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
         loggedInUser.setEmail(OTHER_EMAIL);
 
-        HmhbUser userInDb = new HmhbUser();
+        User userInDb = new User();
         userInDb.setId(USER_ID);
         userInDb.setAdmin(true);
         userInDb.setSuperAdmin(true);
@@ -864,7 +864,7 @@ public class DefaultUserServiceTest {
     @Test(expected = UserNotFoundException.class)
     public void testDelete_Admin_UserNotFound() throws Exception {
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(true);
@@ -891,7 +891,7 @@ public class DefaultUserServiceTest {
 
     @Test(expected = UserNotAllowedToAccessOtherProfileException.class)
     public void testDelete_NonAdmin_AccessingOtherProfile() {
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(OTHER_USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(false);
@@ -907,7 +907,7 @@ public class DefaultUserServiceTest {
 
     @Test
     public void testDelete_NonAdmin_AccessingOwnProfile() {
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setId(USER_ID);
         loggedInUser.setSuperAdmin(false);
         loggedInUser.setAdmin(false);
@@ -919,7 +919,7 @@ public class DefaultUserServiceTest {
         when(dao.findOne(USER_ID)).thenReturn(loggedInUser);
 
         /* Make the call. */
-        HmhbUser actual = toTest.delete(USER_ID);
+        User actual = toTest.delete(USER_ID);
 
         /* Verify the results. */
         assertEquals(loggedInUser, actual);

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import java.util.Date;
@@ -17,8 +18,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * Domain object representing a user.
  */
 @Entity
+@Table(name = "app_user")
 @Cacheable
-public class HmhbUser {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

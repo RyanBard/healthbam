@@ -31,13 +31,13 @@ public class UserControllerTest {
 
     @Test
     public void testGetAll() throws Exception {
-        List<HmhbUser> expected = Collections.singletonList(new HmhbUser());
+        List<User> expected = Collections.singletonList(new User());
 
         /* Train the mocks. */
         when(service.getAll()).thenReturn(expected);
 
         /* Make the call. */
-        List<HmhbUser> actual = toTest.getAll();
+        List<User> actual = toTest.getAll();
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -67,14 +67,14 @@ public class UserControllerTest {
 
     @Test
     public void testGetById() throws Exception {
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
 
         /* Train the mocks. */
         when(service.getById(USER_ID)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.getById(USER_ID);
+        User actual = toTest.getById(USER_ID);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -82,17 +82,17 @@ public class UserControllerTest {
 
     @Test
     public void testCreate() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(null);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
 
         /* Train the mocks. */
         when(service.save(input)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.create(input);
+        User actual = toTest.create(input);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -100,17 +100,17 @@ public class UserControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(USER_ID);
 
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
 
         /* Train the mocks. */
         when(service.save(input)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.update(USER_ID, input);
+        User actual = toTest.update(USER_ID, input);
 
         /* Verify the results. */
         assertEquals(expected, actual);
@@ -118,7 +118,7 @@ public class UserControllerTest {
 
     @Test(expected = UserIdMismatchException.class)
     public void testUpdate_IdMismatch() throws Exception {
-        HmhbUser input = new HmhbUser();
+        User input = new User();
         input.setId(USER_ID);
 
         /* Make the call. */
@@ -127,14 +127,14 @@ public class UserControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        HmhbUser expected = new HmhbUser();
+        User expected = new User();
         expected.setId(USER_ID);
 
         /* Train the mocks. */
         when(service.delete(USER_ID)).thenReturn(expected);
 
         /* Make the call. */
-        HmhbUser actual = toTest.delete(USER_ID);
+        User actual = toTest.delete(USER_ID);
 
         /* Verify the results. */
         assertEquals(expected, actual);

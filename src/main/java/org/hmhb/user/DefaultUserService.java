@@ -58,7 +58,7 @@ public class DefaultUserService implements UserService {
      *                       token can be validated for CSV download.
      * @param csvService the {@link CsvService} for exporting/importing to/from
      *                   CSV
-     * @param dao the {@link UserDao} to save and retrieve {@link HmhbUser}s
+     * @param dao the {@link UserDao} to save and retrieve {@link User}s
      */
     @Autowired
     public DefaultUserService(
@@ -82,7 +82,7 @@ public class DefaultUserService implements UserService {
 
     @Timed
     @Override
-    public HmhbUser saveWithGoogleData(
+    public User saveWithGoogleData(
             @Nonnull String email,
             @Nonnull Person profile
     ) {
@@ -92,10 +92,10 @@ public class DefaultUserService implements UserService {
 
         /* This method isn't exposed and is only used by the system, so there isn't a need to check authorization. */
 
-        HmhbUser user = dao.findByEmailIgnoreCase(email);
+        User user = dao.findByEmailIgnoreCase(email);
 
         if (user == null) {
-            user = new HmhbUser();
+            user = new User();
             user.setSuperAdmin(false);
             user.setAdmin(false);
             user.setEmail(email);
@@ -124,13 +124,13 @@ public class DefaultUserService implements UserService {
      * Checks whether the logged in user is an admin, or the logged in user is
      * trying to view / modify their own profile.
      *
-     * @param userId the database ID of the {@link HmhbUser} that is going to
+     * @param userId the database ID of the {@link User} that is going to
      *               be viewed / modified
      * @return true if the logged in user is allowed to view / change the
      * profile, false otherwise
      */
     private boolean isAllowed(Long userId) {
-        HmhbUser currentUser = authorizationService.getLoggedInUser();
+        User currentUser = authorizationService.getLoggedInUser();
 
         /* Admins can see/edit all profiles and users can see/edit their own profile. */
         return authorizationService.isAdmin()
@@ -139,7 +139,7 @@ public class DefaultUserService implements UserService {
 
     @Timed
     @Override
-    public HmhbUser getById(
+    public User getById(
             @Nonnull Long id
     ) {
         LOGGER.debug("getById called: id={}", id);
@@ -149,7 +149,7 @@ public class DefaultUserService implements UserService {
             throw new UserNotAllowedToAccessOtherProfileException();
         }
 
-        HmhbUser result = dao.findOne(id);
+        User result = dao.findOne(id);
 
         if (result == null) {
             throw new UserNotFoundException(id);
@@ -160,7 +160,7 @@ public class DefaultUserService implements UserService {
 
     @Timed
     @Override
-    public List<HmhbUser> getAll() {
+    public List<User> getAll() {
         LOGGER.debug("getAll called");
 
         if (!authorizationService.isAdmin()) {
@@ -190,7 +190,7 @@ public class DefaultUserService implements UserService {
 
     @Timed
     @Override
-    public HmhbUser delete(
+    public User delete(
             @Nonnull Long id
     ) {
         LOGGER.debug("delete called: id={}", id);
@@ -201,7 +201,7 @@ public class DefaultUserService implements UserService {
         }
 
         /* Verify the user exists. */
-        HmhbUser user = getById(id);
+        User user = getById(id);
 
         if (user.isSuperAdmin()) {
             throw new UserCannotDeleteSuperAdminException();
@@ -214,8 +214,8 @@ public class DefaultUserService implements UserService {
 
     @Timed
     @Override
-    public HmhbUser save(
-            @Nonnull HmhbUser user
+    public User save(
+            @Nonnull User user
     ) {
         LOGGER.debug("save called: user={}", user);
         requireNonNull(user, "user cannot be null");
@@ -228,7 +228,7 @@ public class DefaultUserService implements UserService {
             throw new UserEmailTooLongException();
         }
 
-        HmhbUser userInDb = null;
+        User userInDb = null;
 
         if (user.getId() != null) {
             /* Verify it exists and user has access. */

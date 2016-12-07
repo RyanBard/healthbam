@@ -1,6 +1,6 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 
-CREATE TABLE hmhb_user (
+CREATE TABLE app_user (
     id BIGSERIAL PRIMARY KEY,
     email TEXT NOT NULL,
     super_admin BOOLEAN NOT NULL DEFAULT FALSE,
@@ -22,7 +22,7 @@ CREATE TABLE hmhb_user (
 /*
  * Create the unique index to make the unique constraint on emails case insensitive.
  */
-CREATE UNIQUE INDEX hmhb_user_lower_email_index ON hmhb_user(LOWER(email));
+CREATE UNIQUE INDEX app_user_lower_email_index ON app_user(LOWER(email));
 
 CREATE TABLE organization (
     id BIGSERIAL PRIMARY KEY,

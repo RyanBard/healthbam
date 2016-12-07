@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 import org.hmhb.authorization.AuthorizationService;
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,7 +50,7 @@ public class DefaultAuditHelperTest {
     public void testGetCurrentUserEmail() throws Exception {
         String expected = "someone@mailinator.com";
 
-        HmhbUser loggedInUser = new HmhbUser();
+        User loggedInUser = new User();
         loggedInUser.setEmail(expected);
 
         /* Train the mocks. */

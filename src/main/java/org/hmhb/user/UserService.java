@@ -7,68 +7,68 @@ import java.util.List;
 import com.google.api.services.plus.model.Person;
 
 /**
- * Service to create and retrieve {@link HmhbUser}s.
+ * Service to create and retrieve {@link User}s.
  */
 public interface UserService {
 
     /**
-     * Updates an existing user, or creates a new non-admin {@link HmhbUser} in
+     * Updates an existing user, or creates a new non-admin {@link User} in
      * the system based on the data passed in from google.
      *
-     * @param email the email to lookup or save into the {@link HmhbUser}
+     * @param email the email to lookup or save into the {@link User}
      * @param profile the user's google+ profile
-     * @return the {@link HmhbUser}
+     * @return the {@link User}
      */
-    HmhbUser saveWithGoogleData(
+    User saveWithGoogleData(
             @Nonnull String email,
             @Nonnull Person profile
     );
 
     /**
-     * Retrieves a {@link HmhbUser} by its database ID.
+     * Retrieves a {@link User} by its database ID.
      *
      * @param id the database ID
-     * @return the {@link HmhbUser}
+     * @return the {@link User}
      */
-    HmhbUser getById(
+    User getById(
             @Nonnull Long id
     );
 
     /**
-     * Retrieves all {@link HmhbUser}s in the system.
+     * Retrieves all {@link User}s in the system.
      *
-     * @return all {@link HmhbUser}s
+     * @return all {@link User}s
      */
-    List<HmhbUser> getAll();
+    List<User> getAll();
 
     /**
-     * Retrieves all {@link HmhbUser}s in the system as a CSV.
+     * Retrieves all {@link User}s in the system as a CSV.
      *
      * @param jwtToken the JWT auth token
-     * @return all {@link HmhbUser}s as CSV
+     * @return all {@link User}s as CSV
      */
     String getAllAsCsv(
             @Nonnull String jwtToken
     );
 
     /**
-     * Deletes a {@link HmhbUser} by its database ID.
+     * Deletes a {@link User} by its database ID.
      *
      * @param id the database ID
-     * @return the deleted {@link HmhbUser}
+     * @return the deleted {@link User}
      */
-    HmhbUser delete(
+    User delete(
             @Nonnull Long id
     );
 
     /**
-     * Saves a {@link HmhbUser} (create or update).
+     * Saves a {@link User} (create or update).
      *
-     * @param user the {@link HmhbUser} to create or update
-     * @return the saved {@link HmhbUser}
+     * @param user the {@link User} to create or update
+     * @return the saved {@link User}
      */
-    HmhbUser save(
-            @Nonnull HmhbUser user
+    User save(
+            @Nonnull User user
     );
 
 }

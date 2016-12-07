@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 import org.hmhb.program.Program;
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 
 /**
  * A service to generate CSV from our data.
@@ -30,13 +30,13 @@ public interface CsvService {
     );
 
     /**
-     * Generates the contents for a CSV from the passed in {@link HmhbUser}s.
+     * Generates the contents for a CSV from the passed in {@link User}s.
      *
-     * @param users the list of {@link HmhbUser}s to generate CSV from
+     * @param users the list of {@link User}s to generate CSV from
      * @return the CSV of the passed in users
      */
     String generateFromUsers(
-            @Nonnull List<HmhbUser> users
+            @Nonnull List<User> users
     );
 
 }

@@ -12,7 +12,7 @@ import org.hmhb.exception.authentication.ClientIdMismatchException;
 import org.hmhb.exception.oauth.GoogleOauthException;
 import org.hmhb.oauth.GoogleOauthService;
 import org.hmhb.oauth.GoogleResponseData;
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 import org.hmhb.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -143,7 +143,7 @@ public class DefaultAuthenticationServiceTest {
 
         TokenResponse expected = new TokenResponse(TOKEN);
 
-        HmhbUser user = new HmhbUser();
+        User user = new User();
         user.setId(USER_ID);
         user.setEmail(USER_EMAIL);
         user.setAdmin(true);

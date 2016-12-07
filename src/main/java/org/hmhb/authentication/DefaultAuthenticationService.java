@@ -10,7 +10,7 @@ import org.hmhb.exception.authentication.ClientIdMismatchException;
 import org.hmhb.exception.oauth.GoogleOauthException;
 import org.hmhb.oauth.GoogleOauthService;
 import org.hmhb.oauth.GoogleResponseData;
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 import org.hmhb.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class DefaultAuthenticationService implements AuthenticationService {
      * @param jwtAuthenticationService the {@link JwtAuthenticationService} to
      *                                 generate a JWT with
      * @param userService the {@link UserService} to lookup or provision a new
-     *                    {@link HmhbUser} in the system
+     *                    {@link User} in the system
      */
     @Autowired
     public DefaultAuthenticationService(
@@ -102,7 +102,7 @@ public class DefaultAuthenticationService implements AuthenticationService {
             throw new GoogleOauthException("Failed to parse google id token!", e);
         }
 
-        HmhbUser user = userService.saveWithGoogleData(
+        User user = userService.saveWithGoogleData(
                 email,
                 googleResponseData.getGooglePlusProfile()
         );

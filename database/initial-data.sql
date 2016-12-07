@@ -3,14 +3,14 @@
 /**********************************
  * Begin Users.
  **********************************/
-INSERT INTO hmhb_user (
+INSERT INTO app_user (
     email,
     admin,
     super_admin,
     created_on,
     created_by
 ) VALUES (
-    'hmhbga@gmail.com',
+    'john.ryan.bard@gmail.com',
     TRUE,
     TRUE,
     CURRENT_TIMESTAMP,
@@ -50,7 +50,7 @@ INSERT INTO program_area (
     name
 ) VALUES (
     1,
-    'Infant Mortality'
+    'Program Area 1'
 );
 
 INSERT INTO program_area (
@@ -58,127 +58,7 @@ INSERT INTO program_area (
     name
 ) VALUES (
     2,
-    'Low Birthweight'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    3,
-    'Prematurity'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    4,
-    'Smoking Cessation'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    5,
-    'Maternal Mortality'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    6,
-    'Prenatal Care Access'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    7,
-    'Prenatal Education'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    8,
-    'Breastfeeding Initiation'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    9,
-    'Breastfeeding Duration'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    10,
-    'Obesity'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    11,
-    'Substance Abuse Prevention'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    12,
-    'Neonatal Care'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    13,
-    'Postpartum Visits'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    14,
-    'Child Safety'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    15,
-    'Pediatric Care Access'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    16,
-    'Perinatal Mood and Anxiety Disorders (Mental Health)'
-);
-
-INSERT INTO program_area (
-    id,
-    name
-) VALUES (
-    17,
-    'Dental and Oral Health'
+    'Program Area 2'
 );
 /**********************************
  * End ProgramAreas.

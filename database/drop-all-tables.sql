@@ -9,4 +9,4 @@ DROP TABLE IF EXISTS program;
 DROP TABLE IF EXISTS program_area;
 DROP TABLE IF EXISTS county;
 DROP TABLE IF EXISTS organization;
-DROP TABLE IF EXISTS hmhb_user;
+DROP TABLE IF EXISTS app_user;

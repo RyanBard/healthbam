@@ -20,7 +20,7 @@ import org.hmhb.exception.authentication.AuthHeaderUnknownException;
 import org.hmhb.exception.authentication.JwtTokenExpiredException;
 import org.hmhb.exception.authentication.JwtTokenNotActiveYetException;
 import org.hmhb.exception.authentication.JwtTokenNotSignedException;
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +66,7 @@ public class DefaultJwtAuthenticationService implements JwtAuthenticationService
     @Timed
     @Override
     public String generateJwtToken(
-            @Nonnull HmhbUser user
+            @Nonnull User user
     ) {
         LOGGER.debug("generateJwtToken called: user={}", user);
 
@@ -209,7 +209,7 @@ public class DefaultJwtAuthenticationService implements JwtAuthenticationService
                 userId
         );
 
-        HmhbUser user = new HmhbUser();
+        User user = new User();
         user.setAdmin(admin);
         user.setEmail(email);
         user.setId(userId);

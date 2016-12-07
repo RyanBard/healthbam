@@ -7,7 +7,7 @@ import java.util.Date;
 
 import com.codahale.metrics.annotation.Timed;
 import org.hmhb.authorization.AuthorizationService;
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,7 @@ public class DefaultAuditHelper implements AuditHelper {
     public String getCurrentUserEmail() {
         LOGGER.debug("getCurrentUserEmail called");
 
-        HmhbUser loggedInUser = authorizationService.getLoggedInUser();
+        User loggedInUser = authorizationService.getLoggedInUser();
 
         String email = null;
 

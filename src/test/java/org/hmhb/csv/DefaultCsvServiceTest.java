@@ -9,7 +9,7 @@ import org.hmhb.county.County;
 import org.hmhb.organization.Organization;
 import org.hmhb.program.Program;
 import org.hmhb.programarea.ProgramArea;
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -35,8 +35,8 @@ public class DefaultCsvServiceTest {
     private Program program1;
     private Program program2;
 
-    private HmhbUser user1;
-    private HmhbUser user2;
+    private User user1;
+    private User user2;
 
     @Before
     public void setUp() {
@@ -54,8 +54,8 @@ public class DefaultCsvServiceTest {
         user2.setAdmin(false);
     }
 
-    private HmhbUser createdFilledUser(String prefix) {
-        HmhbUser user = new HmhbUser();
+    private User createdFilledUser(String prefix) {
+        User user = new User();
 
         user.setEmail(prefix + "email");
         user.setSuperAdmin(true);
@@ -445,7 +445,7 @@ public class DefaultCsvServiceTest {
     @Test
     public void testGenerateFromUsers_EmptyList() throws Exception {
         /* Make the call. */
-        String actual = toTest.generateFromUsers(Collections.<HmhbUser>emptyList());
+        String actual = toTest.generateFromUsers(Collections.<User>emptyList());
 
         /* Verify the results. */
         assertEquals(

@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 
 import com.codahale.metrics.annotation.Timed;
-import org.hmhb.user.HmhbUser;
+import org.hmhb.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +36,10 @@ public class DefaultAuthorizationService implements AuthorizationService {
 
     @Timed
     @Override
-    public HmhbUser getLoggedInUser() {
+    public User getLoggedInUser() {
         LOGGER.debug("getLoggedInUser called");
 
-        HmhbUser loggedInUser = (HmhbUser) request.getAttribute("loggedInUser");
+        User loggedInUser = (User) request.getAttribute("loggedInUser");
         LOGGER.debug("currently logged in user: user={}", loggedInUser);
 
         return loggedInUser;
@@ -50,7 +50,7 @@ public class DefaultAuthorizationService implements AuthorizationService {
     public boolean isLoggedIn() {
         LOGGER.debug("isLoggedIn called");
 
-        HmhbUser loggedInUser = getLoggedInUser();
+        User loggedInUser = getLoggedInUser();
         LOGGER.debug("currently logged in user: loggedInUser={}", loggedInUser);
 
         boolean isLoggedIn = loggedInUser != null;
@@ -64,7 +64,7 @@ public class DefaultAuthorizationService implements AuthorizationService {
     public boolean isAdmin() {
         LOGGER.debug("isAdmin called");
 
-        HmhbUser loggedInUser = getLoggedInUser();
+        User loggedInUser = getLoggedInUser();
         boolean isAdmin = false;
 
         if (loggedInUser != null) {
