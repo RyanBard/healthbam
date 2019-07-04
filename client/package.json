@@ -130,5 +130,13 @@
       "unicode-bom": "error",
       "wrap-regex": "error"
     }
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true,
+  "dependencies": {
+    "snyk": "^1.189.0"
   }
 }
