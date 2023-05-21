@@ -14,7 +14,7 @@
         flatten = require("gulp-flatten"),
         templatecache = require("gulp-angular-templatecache"),
         cssNano = require("gulp-cssnano"),
-        sass = require("gulp-sass"),
+        sass = require('gulp-sass')(require('node-sass')),
         sourcemaps = require("gulp-sourcemaps"),
         order = require("gulp-order"),
         rename = require("gulp-rename"),

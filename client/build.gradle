@@ -14,7 +14,7 @@ processResources.dependsOn gulp_default
 
 node {
     // Version of node to use.
-    version = "10.9.0"
+    version = "12.0.0"
 
     // Enabled the automatic download. False is the default (for now).
     download = true
